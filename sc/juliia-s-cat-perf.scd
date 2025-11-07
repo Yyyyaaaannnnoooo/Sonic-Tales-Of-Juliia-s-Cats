@@ -1,4 +1,4 @@
-// SYNTHS
+// FOR PERFORMANCE REMEBER to do rate 0 and change pos!!!
 (
 // Server.default.options.outDevice_("Multi-Output Device");
 Server.default.options.outDevice_("BlackHole 16ch");
@@ -177,10 +177,10 @@ s.boot;
 
 ~return_spirits.()
 
+~chant_the_lore.()
 
 
-
-
+// TESTING GROUNDS
 
 
 (
@@ -276,4 +276,4 @@ var chaos  = 0;
 Fork
 
 
-// TESTING GROUNDS
+

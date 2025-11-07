@@ -1,5 +1,11 @@
 
+
 (
+
+~size = 8192;
+~waves = 16;
+~hop = 0.25;
+~win = 0;
 
 ~purr_paths = [
   "/Users/ya/Documents/___projects/Yule-the-cat/sc/ascii/cat1.txt",
@@ -7,6 +13,22 @@
   "/Users/ya/Documents/___projects/Yule-the-cat/sc/ascii/cat3.txt",
 ];
 ~server_scourge_curse = File.readAllString("/Users/ya/Documents/___projects/Yule-the-cat/sc/ascii/server1.txt");
+
+~lore_progression = 0;
+~lore_book = File.readAllString("/Users/ya/Documents/___projects/Yule-the-cat/lore/lore.txt");
+
+~chant_the_lore = {
+  var chant = ~lore_book.split($~)[~lore_progression];
+  {
+    ~sigil.();
+    0.6.wait;
+    ~whisper_incantation.(chant.split($\n), 0.1);
+    ~lore_progression = ~lore_progression +1;
+  }.fork
+  // chant.postln;
+};
+
+// {0.1.wait;~chant_the_lore.();}.fork;
 
 ~purr_incantations = ~purr_paths.collect({
   arg item, i;
@@ -43,6 +65,8 @@
   }.fork
 };
 
+// ~enchant.();
+
 ~sigil = {
   var casting_haste = 0.1,
   incantation,
@@ -52,13 +76,6 @@
     incantation = incantation.split($\n);
     ~whisper_incantation.(incantation, casting_haste);
     (casting_haste * incantation.size).wait;
-    /*    {
-    purrs.do({
-    arg pu;
-    ("purr"++("r"!pu).toString).postln;
-    casting_haste.wait
-    })}.fork;
-    (purrs * casting_haste).wait;*/
   }.fork
 };
 
@@ -102,13 +119,13 @@
 
 ~spectral = {
   arg buf;
-  "Spectral".postln;
+  "Spectral...".postln;
   Buffer.alloc(s, buf.duration.calcPVRecSize(~size, ~hop), 1);
 };
 
 ~spectral_calling = {
   arg recbuf=1, soundbuf=2;
-  "Calling...".postln;
+  "...Calling".postln;
   Synth(\pvrec_mono, [\recBuf, recbuf, \soundBufnum, soundbuf]);
 };
 
@@ -150,7 +167,7 @@
     // ~enchant.();
 
     ~cat_sigil.duration.wait;
-    "spirts have reached this world".postln;
+    "Spirits have reached this world".postln;
     ~sigil.();
     0.6.wait;
     ~sigil.();
@@ -240,11 +257,6 @@ d = Dictionary.newFrom([
     (~convert.(item)*note)+(octave);
   });
 };
-
-
-
-
-
 
 
 SynthDef(\pvrec_mono, {
